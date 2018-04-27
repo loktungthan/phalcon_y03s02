@@ -244,6 +244,7 @@ class UsersController extends ControllerBase
                     if ($this->security->checkHash($pass, $user->getpassword())) {
                            
                             $this->flash->success("Welcome back " . $user->getEmail());
+                            $this->session->set("userId",$user->getId());
                             return "Successfully Logged in!";
                     }
                     else {

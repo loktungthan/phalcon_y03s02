@@ -1,5 +1,5 @@
 <?php
-
+use Phalcon\Mvc\Model;
 class Movie extends \Phalcon\Mvc\Model
 {
 
@@ -40,6 +40,7 @@ class Movie extends \Phalcon\Mvc\Model
      */
     protected $image;
 
+    
     /**
      * Method to set the value of field id
      *

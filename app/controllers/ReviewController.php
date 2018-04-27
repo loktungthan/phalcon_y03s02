@@ -4,7 +4,7 @@ use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
 
-class MovieController extends ControllerBase
+class ReviewController extends ControllerBase
 {
     /**
      * Index action
@@ -15,13 +15,13 @@ class MovieController extends ControllerBase
     }
 
     /**
-     * Searches for movie
+     * Searches for Review
      */
     public function searchAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, 'Movie', $_POST);
+            $query = Criteria::fromInput($this->di, 'Review', $_POST);
             $this->persistent->parameters = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -33,12 +33,12 @@ class MovieController extends ControllerBase
         }
         $parameters["order"] = "id";
 
-        $movie = Movie::find($parameters);
-        if (count($movie) == 0) {
-            $this->flash->notice("The search did not find any movie");
+        $review = Review::find($parameters);
+        if (count($review) == 0) {
+            $this->flash->notice("The search did not find any Review");
 
             $this->dispatcher->forward([
-                "controller" => "movie",
+                "controller" => "Review",
                 "action" => "index"
             ]);
 
@@ -46,7 +46,7 @@ class MovieController extends ControllerBase
         }
 
         $paginator = new Paginator([
-            'data' => $movie,
+            'data' => $review,
             'limit'=> 10,
             'page' => $numberPage
         ]);
@@ -63,7 +63,7 @@ class MovieController extends ControllerBase
     }
 
     /**
-     * Edits a movie
+     * Edits a Review
      *
      * @param string $id
      */
@@ -71,78 +71,71 @@ class MovieController extends ControllerBase
     {
         if (!$this->request->isPost()) {
 
-            $movie = Movie::findFirstByid($id);
-            $reviews = Review::find("movieId = '$id'");
-            if (!$movie) {
-                $this->flash->error("movie was not found");
+            $review = Review::findFirstByid($id);
+            if (!$review) {
+                $this->flash->error("Review was not found");
 
                 $this->dispatcher->forward([
-                    'controller' => "movie",
+                    'controller' => "Review",
                     'action' => 'index'
                 ]);
 
                 return;
             }
 
-            $this->view->id = $movie->getId();
-            $this->session->set("movieId",$movie->getId());
-            $this->tag->setDefault("id", $movie->getId());
-            $this->tag->setDefault("name", $movie->getName());
-            $this->tag->setDefault("description", $movie->getDescription());
-            $this->tag->setDefault("rating", $movie->getRating());
-            $this->tag->setDefault("image", $movie->getImage());
-            foreach ($reviews as $review) {
-                echo $review->content;
-                echo "</br>";
-             }
+            $this->view->id = $review->getId();
+
+            $this->tag->setDefault("id", $review->getId());
+            $this->tag->setDefault("content", $review->getContent());
+            $this->tag->setDefault("userId", $review->getUserid());
+            $this->tag->setDefault("movieId", $review->getMovieid());
             
         }
     }
 
     /**
-     * Creates a new movie
+     * Creates a new Review
      */
     public function createAction()
     {
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'index'
             ]);
 
             return;
         }
-
-        $movie = new Movie();
-        $movie->setname($this->request->getPost("name"));
-        $movie->setdescription($this->request->getPost("description"));
-        $movie->setrating($this->request->getPost("rating"));
-        $movie->setimage(base64_encode(file_get_contents($this->request->getUploadedFiles()[0]->getTempName())));
+        
+        $review = new Review();
+        $review->setcontent($this->request->getPost("content"));
+        $review->setuserId($this->session->get("userId"));
+        $review->setmovieId($this->session->get("movieId"));
         
 
-        if (!$movie->save()) {
-            foreach ($movie->getMessages() as $message) {
+        if (!$review->save()) {
+            foreach ($review->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'new'
             ]);
 
             return;
         }
 
-        $this->flash->success("movie was created successfully");
+        $this->flash->success("Review was created successfully");
 
         $this->dispatcher->forward([
-            'controller' => "movie",
+            'controller' => "Review",
             'action' => 'index'
         ]);
     }
 
     /**
-     * Saves a movie edited
+     * Saves a Review edited
      *
      */
     public function saveAction()
@@ -150,7 +143,7 @@ class MovieController extends ControllerBase
 
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'index'
             ]);
 
@@ -158,85 +151,84 @@ class MovieController extends ControllerBase
         }
 
         $id = $this->request->getPost("id");
-        $movie = Movie::findFirstByid($id);
+        $review = Review::findFirstByid($id);
 
-        if (!$movie) {
-            $this->flash->error("movie does not exist " . $id);
+        if (!$review) {
+            $this->flash->error("Review does not exist " . $id);
 
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'index'
             ]);
 
             return;
         }
 
-        $movie->setname($this->request->getPost("name"));
-        $movie->setdescription($this->request->getPost("description"));
-        $movie->setrating($this->request->getPost("rating"));
-        $movie->setimage($this->request->getPost("image"));
+        $review->setcontent($this->request->getPost("content"));
+        $review->setuserId($this->request->getPost("userId"));
+        $review->setmovieId($this->request->getPost("movieId"));
         
 
-        if (!$movie->save()) {
+        if (!$review->save()) {
 
-            foreach ($movie->getMessages() as $message) {
+            foreach ($review->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'edit',
-                'params' => [$movie->getId()]
+                'params' => [$review->getId()]
             ]);
 
             return;
         }
 
-        $this->flash->success("movie was updated successfully");
+        $this->flash->success("Review was updated successfully");
 
         $this->dispatcher->forward([
-            'controller' => "movie",
+            'controller' => "Review",
             'action' => 'index'
         ]);
     }
 
     /**
-     * Deletes a movie
+     * Deletes a Review
      *
      * @param string $id
      */
     public function deleteAction($id)
     {
-        $movie = Movie::findFirstByid($id);
-        if (!$movie) {
-            $this->flash->error("movie was not found");
+        $review = Review::findFirstByid($id);
+        if (!$review) {
+            $this->flash->error("Review was not found");
 
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'index'
             ]);
 
             return;
         }
 
-        if (!$movie->delete()) {
+        if (!$review->delete()) {
 
-            foreach ($movie->getMessages() as $message) {
+            foreach ($review->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
             $this->dispatcher->forward([
-                'controller' => "movie",
+                'controller' => "Review",
                 'action' => 'search'
             ]);
 
             return;
         }
 
-        $this->flash->success("movie was deleted successfully");
+        $this->flash->success("Review was deleted successfully");
 
         $this->dispatcher->forward([
-            'controller' => "movie",
+            'controller' => "Review",
             'action' => "index"
         ]);
     }

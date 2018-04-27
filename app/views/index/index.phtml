@@ -8,18 +8,34 @@ echo "<h1>Hello!</h1>";
 echo PHP_EOL;
 
 echo PHP_EOL;
-
-echo $this->tag->linkTo(
-    "users/new",
-    "Sign Up Here!"
-);
-
-echo $this->tag->linkTo(
-    "users/login",
-    "Login Here!"
-);
-
-echo $this->tag->linkTo(
+if($this->session->has("userId")){
+    echo $this->tag->linkTo(
     "movie/new",
     "Create a movie!"
+    );     
+    echo "</br>";  
+    echo $this->tag->linkTo(
+    "movie/index",
+    "Search movies!"
+    );     
+        echo "</br>";   
+    echo $this->tag->linkTo(
+    "logout",
+    "Logout!"
 );
+}else{
+       echo $this->tag->linkTo(
+        "users/new",
+        "Sign Up Here!"
+        );
+        echo "</br>";   
+        echo $this->tag->linkTo(
+            "users/login",
+            "Login Here!"
+        ); 
+};
+
+
+
+
+
