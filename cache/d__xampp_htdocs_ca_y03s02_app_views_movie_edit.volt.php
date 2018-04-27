@@ -59,9 +59,14 @@
 </div>
 
 <div class="form-group">
-    <label for="fieldImageFile" class="col-sm-2 control-label">Reviews</label>
+    <label for="fieldReview" class="col-sm-2 control-label">Review</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["review", "size" => 30, "class" => "form-control", "id" => "fieldImageFile"]) ?>
+
+        <?php 
+        
+            echo $this->tag->textField(["review", "size" => 30, "class" => "form-control", "id" => "fieldImageFile"]);
+        
+         ?>
     </div>
 </div>
 

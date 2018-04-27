@@ -2,6 +2,7 @@
  
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
+use Phalcon\Http\Response;
 
 
 class ReviewController extends ControllerBase
@@ -112,7 +113,7 @@ class ReviewController extends ControllerBase
         $review->setuserId($this->session->get("userId"));
         $review->setmovieId($this->session->get("movieId"));
         
-
+        $movieId = $this->session->get("movieId");
         if (!$review->save()) {
             foreach ($review->getMessages() as $message) {
                 $this->flash->error($message);
@@ -125,7 +126,8 @@ class ReviewController extends ControllerBase
 
             return;
         }
-
+        $response = new Response();
+        $response->redirect("movie/edit/'$movieId'");
         $this->flash->success("Review was created successfully");
 
         $this->dispatcher->forward([
@@ -185,7 +187,7 @@ class ReviewController extends ControllerBase
         }
 
         $this->flash->success("Review was updated successfully");
-
+        
         $this->dispatcher->forward([
             'controller' => "Review",
             'action' => 'index'

@@ -91,10 +91,12 @@ class MovieController extends ControllerBase
             $this->tag->setDefault("description", $movie->getDescription());
             $this->tag->setDefault("rating", $movie->getRating());
             $this->tag->setDefault("image", $movie->getImage());
+            
             foreach ($reviews as $review) {
-                echo $review->content;
-                echo "</br>";
+                
+                $this->tag->setDefault("review", $review->content);                
              }
+             
             
         }
     }
