@@ -121,7 +121,7 @@ class ReviewController extends ControllerBase
 
             $this->dispatcher->forward([
                 'controller' => "Review",
-                'action' => 'new'
+                'action' => 'search'
             ]);
 
             return;

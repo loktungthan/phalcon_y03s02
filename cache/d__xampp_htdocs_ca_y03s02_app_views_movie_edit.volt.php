@@ -58,17 +58,7 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="fieldReview" class="col-sm-2 control-label">Review</label>
-    <div class="col-sm-10">
 
-        <?php 
-        
-            echo $this->tag->textField(["review", "size" => 30, "class" => "form-control", "id" => "fieldImageFile"]);
-        
-         ?>
-    </div>
-</div>
 
 <?php echo $this->tag->hiddenField("id") ?>
 

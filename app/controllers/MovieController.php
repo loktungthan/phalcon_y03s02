@@ -235,7 +235,6 @@ class MovieController extends ControllerBase
             return;
         }
 
-        $this->flash->success("movie was deleted successfully");
 
         $this->dispatcher->forward([
             'controller' => "movie",
