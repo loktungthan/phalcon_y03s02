@@ -1,9 +1,9 @@
 <div class="page-header">
-    <h1>Read/Comment/Rate your favourite Movies Reviews Here!!</h1>
+    <h1>Read/Comment/Rate your favourite Movies Reviews Here!</h1>
 </div>
 <?php
 
-echo "<h1>Welcome, please select an option:</h1>";
+echo "<h2>Welcome, please select an option:</h2>";
 
 echo PHP_EOL;
 
@@ -11,31 +11,44 @@ echo PHP_EOL;
 if($this->session->has("userId")){
     echo $this->tag->linkTo(
     "movie/new",
-    "<h2>Create a movie</h2>"
+    "<div class='col-sm-8 text-left'> 
+      <h3>Create a movie</h3>
+    </div>"
     );     
+    echo "</br>";  
     echo $this->tag->linkTo(
     "movie/index",
-    "<h2>Search movies</h2>"
+    "<div class='col-sm-8 text-left'> 
+      <h3>Search Movies</h3>
+    </div>"
     );     
         
      
     echo $this->tag->linkTo(
     "review/",
-    "<h2>Search Reviews</h2>"
+    "<div class='col-sm-8 text-left'> 
+      <h3>Search Reviews</h3>
+    </div>"
     );  
     
     echo $this->tag->linkTo(
     "logout",
-    "<h2>Logout</h2>"
+    "<div class='col-sm-8 text-left'> 
+      <h3>Logout</h3>
+    </div>"
     );
 }else{
        echo $this->tag->linkTo(
         "users/new",
-        "<h2>Sign Up Here</h2>"
+        "<div class='col-sm-8 text-left'> 
+        <h3>Sign up here</h3>
+        </div>"
         );
         echo $this->tag->linkTo(
-            "users/login",
-            "<h2>Login Here</h2>"
+        "users/login",
+        "<div class='col-sm-8 text-left'> 
+        <h3>Login here</h3>
+        </div>"
         ); 
 };
 
