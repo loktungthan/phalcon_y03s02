@@ -7,7 +7,7 @@
 <div class="row">
     <nav>
         <ul class="pager">
-            <li class="previous"><?php echo $this->tag->linkTo(["movie", "Go Back"]) ?></li>
+            <li class="previous"><?php echo $this->tag->linkTo(["movie/search", "Go Back"]) ?></li>
         </ul>
     </nav>
 </div>
@@ -48,7 +48,21 @@
 <div class="form-group">
     <label for="fieldRating" class="col-sm-2 control-label">Rating</label>
     <div class="col-sm-10">
-        <?php echo $this->tag->textField(["rating", "type" => "number", "class" => "form-control", "id" => "fieldRating"]) ?>
+        <label>
+           1 star(s)  <?php echo $this->tag->radioField(["rating", "type" => "radio", "value"=>1, "class" => "radio-inline", "id" => "fieldRating"]) ?>
+        </label>
+        <label>
+           2 star(s)  <?php echo $this->tag->radioField(["rating", "type" => "radio", "value"=>2, "class" => "radio-inline", "id" => "fieldRating"]) ?>
+        </label>
+        <label>
+           3 star(s)  <?php echo $this->tag->radioField(["rating", "type" => "radio", "value"=>3, "class" => "radio-inline", "id" => "fieldRating"]) ?>
+        </label>
+        <label>
+           4 star(s)  <?php echo $this->tag->radioField(["rating", "type" => "radio", "value"=>4, "class" => "radio-inline", "id" => "fieldRating"]) ?>
+        </label>
+        <label>
+           5 star(s)  <?php echo $this->tag->radioField(["rating", "type" => "radio", "value"=>5, "class" => "radio-inline", "id" => "fieldRating"]) ?>
+        </label>
     </div>
 </div>
 

@@ -178,6 +178,7 @@ class MovieController extends ControllerBase
         $movie->setrating($this->request->getPost("rating"));
         $movie->setimage($this->request->getPost("image"));
         
+        
 
         if (!$movie->save()) {
 

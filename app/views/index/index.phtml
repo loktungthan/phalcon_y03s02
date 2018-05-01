@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Congratulations!!!</h1>
+    <h1>Read/Comment/Rate your favourite Movies Reviews Here!!</h1>
 </div>
 <?php
 
@@ -7,7 +7,7 @@ echo "<h1>Hello!</h1>";
 
 echo PHP_EOL;
 
-echo PHP_EOL;
+
 if($this->session->has("userId")){
     echo $this->tag->linkTo(
     "movie/new",
@@ -18,11 +18,18 @@ if($this->session->has("userId")){
     "movie/index",
     "Search movies!"
     );     
-        echo "</br>";   
+        
+        echo "</br>";  
+    echo $this->tag->linkTo(
+    "review/",
+    "Search Reviews!"
+    );  
+    
+    echo "</br>";   
     echo $this->tag->linkTo(
     "logout",
     "Logout!"
-);
+    );
 }else{
        echo $this->tag->linkTo(
         "users/new",

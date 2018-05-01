@@ -7,14 +7,14 @@
 <div class="row">
     <nav>
         <ul class="pager">
-            <li class="previous"><?php echo $this->tag->linkTo(["users", "Go Back"]) ?></li>
+            <li class="previous"><?php echo $this->tag->linkTo(["index", "Go Back"]) ?></li>
         </ul>
     </nav>
 </div>
 
 <div class="page-header">
     <h1>
-        Create users
+        Create Account
     </h1>
 </div>
 
@@ -48,7 +48,11 @@
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
         <?php echo $this->tag->submitButton(["Submit", "class" => "btn btn-default", "Create User"]) ?>
+        <li><?php echo $this->tag->linkTo(["users/login", "Already have an Account? Login here!"]) ?></li>
     </div>
+    
+        
+    
 </div>
 
 <?php echo $this->tag->endForm(); ?>

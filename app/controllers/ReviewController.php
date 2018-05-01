@@ -105,7 +105,7 @@ class ReviewController extends ControllerBase
                 'action' => 'index'
             ]);
 
-            return;
+            return "review created succesfully!";
         }
         
         $review = new Review();
@@ -120,20 +120,21 @@ class ReviewController extends ControllerBase
             }
 
             $this->dispatcher->forward([
-                'controller' => "Review",
-                'action' => 'search'
+                'controller' => "review",
+                'action' => 'new'
             ]);
 
             return;
         }
         $response = new Response();
-        $response->redirect("movie/edit/'$movieId'");
+        //$response->redirect("movie/edit/'$movieId'");
         $this->flash->success("Review was created successfully");
 
         $this->dispatcher->forward([
             'controller' => "Review",
             'action' => 'index'
         ]);
+        return (["index"]);
     }
 
     /**

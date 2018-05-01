@@ -245,7 +245,10 @@ class UsersController extends ControllerBase
                            
                             $this->flash->success("Welcome back " . $user->getEmail());
                             $this->session->set("userId",$user->getId());
-                            return "Successfully Logged in!";
+                            return (["index"]);
+                            
+          
+                            
                     }
                     else {
                             $this->flash->error("Your password is incorrect - try again");
