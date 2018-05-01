@@ -3,7 +3,7 @@
 </div>
 <?php
 
-echo "<h1>Hello!</h1>";
+echo "<h1>Welcome, please select an option:</h1>";
 
 echo PHP_EOL;
 
@@ -11,34 +11,31 @@ echo PHP_EOL;
 if($this->session->has("userId")){
     echo $this->tag->linkTo(
     "movie/new",
-    "Create a movie!"
+    "<h2>Create a movie</h2>"
     );     
-    echo "</br>";  
     echo $this->tag->linkTo(
     "movie/index",
-    "Search movies!"
+    "<h2>Search movies</h2>"
     );     
         
-        echo "</br>";  
+     
     echo $this->tag->linkTo(
     "review/",
-    "Search Reviews!"
+    "<h2>Search Reviews</h2>"
     );  
     
-    echo "</br>";   
     echo $this->tag->linkTo(
     "logout",
-    "Logout!"
+    "<h2>Logout</h2>"
     );
 }else{
        echo $this->tag->linkTo(
         "users/new",
-        "Sign Up Here!"
+        "<h2>Sign Up Here</h2>"
         );
-        echo "</br>";   
         echo $this->tag->linkTo(
             "users/login",
-            "Login Here!"
+            "<h2>Login Here</h2>"
         ); 
 };
 

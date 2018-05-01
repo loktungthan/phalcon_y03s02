@@ -245,7 +245,7 @@ class UsersController extends ControllerBase
                            
                             $this->flash->success("Welcome back " . $user->getEmail());
                             $this->session->set("userId",$user->getId());
-                            return $this->dispatcher->forward(["controller"=>"section","action"=>"search"]);
+                            
                             
           
                             
